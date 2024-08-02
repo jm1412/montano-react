@@ -1,22 +1,12 @@
-import ListGroup from "./components/ListGroup";
+import React from "react";
+import Expenses from "./Expenses";
 
-function App() {
-  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
-  items = [];
-
+const App: React.FC = () => {
   return (
-    <>
-      <h1>List</h1>
-      {items.length === 0 && <p>No item found.</p>}
-      <ul className="list-group">
-        {items.map((item) => (
-          <li key={item} className="list-group-item">
-            {item}
-          </li>
-        ))}
-      </ul>
-    </>
+    <div>
+      <Expenses />
+    </div>
   );
-}
+};
 
 export default App;
