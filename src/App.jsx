@@ -1,7 +1,14 @@
 import Button from "./Button";
+import Header from "./Header";
+import Footer from "./Footer";
 
 function App() {
-  return <Button />;
+  return (
+    <>
+      <Header />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
