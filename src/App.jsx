@@ -4,11 +4,12 @@ import Footer from "./Footer";
 import MyComponentArray from "./MyComponentArray";
 import MyComponentArrayInObjects from "./MyComponentArrayInObjects";
 import Counter from "./Counter";
+import ToDoList from "./ToDoList";
 
 function App() {
     return (
         <>
-            <MyComponentArrayInObjects />
+            <ToDoList />
         </>
     );
 }

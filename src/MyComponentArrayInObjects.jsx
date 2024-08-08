@@ -9,9 +9,13 @@ function MyComponentArrayInObjects() {
     function handleAddCar() {
         const newCar = { year: carYear, make: carMake, model: carModel };
         setCars((c) => [...cars, newCar]);
+
+        setCarYear(new Date().getFullYear());
+        setCarModel("");
+        setCarMake("");
     }
     function handleRemoveCar(index) {
-        setCars(cars.filter((_, i) => i !== index));
+        setCars((c) => c.filter((_, i) => i !== index));
     }
 
     function handleYearChange(event) {
@@ -26,7 +30,7 @@ function MyComponentArrayInObjects() {
 
     function displayCars() {
         return cars.map((car, index) => (
-            <li key={index}>
+            <li key={index} onClick={() => handleRemoveCar(index)}>
                 {car.year} {car.make} {car.model}
             </li>
         ));
