@@ -100,7 +100,7 @@ function Gasto() {
     );
   };
 
-  const CreateButton = (label, onClickHandler, className) => {
+  const CreateButton = ({ label, onClickHandler, className }) => {
     return (
       <button className={className} onClick={onClickHandler}>
         {label}
@@ -111,11 +111,33 @@ function Gasto() {
   const BackButton = () => {
     // Can be used as back for certain pages, or Home
     // Brings user to home page
-    return CreateButton("Back", () => setUserView(<HomePage />), styles.button);
+    return (
+      <CreateButton
+        label="Back"
+        onClickHandler={() => setUserView(<HomePage />)}
+        className={styles.button}
+      />
+    );
   };
 
   const AddExpenseButton = () => {
-    return CreateButton("Add Expense", InitiateAddExpense, styles.button);
+    return (
+      <CreateButton
+        label="Add Expense"
+        onClickHandler={InitiateAddExpense}
+        className={styles.button}
+      />
+    );
+  };
+
+  const ViewExpenseButton = () => {
+    return (
+      <CreateButton
+        label="View Expenses"
+        onClickHandler={setUserView(<HomePage />)}
+        className={styles.button}
+      />
+    );
   };
 
   const HomePage = () => {
@@ -124,13 +146,6 @@ function Gasto() {
         <ExpenseList />
         <Buttons />
       </>
-    );
-  };
-  const ViewExpenseButton = () => {
-    return CreateButton(
-      "View Expenses",
-      () => setUserView(<HomePage />),
-      styles.button
     );
   };
 
