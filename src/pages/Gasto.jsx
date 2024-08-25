@@ -3,6 +3,7 @@ import styles from "./Gasto.module.css";
 
 function GetExpensesFromServer() {
   // Get expense details from server.
+  // Sent from django already broken down to minimize work from js.
 
   // Sample data only.
   const categories = {
@@ -32,11 +33,46 @@ function GetExpensesFromServer() {
     Miscellaneous: [],
   };
 
-  return { categories, detailedBreakdown };
+  const subCategories = {
+    Housing: ["Rent", "Utilities"],
+    Transportation: ["Bus", "Gas"],
+    Food: ["Groceries", "Dining Out"],
+    Health: ["Doctor", "Medication"],
+    Personal: ["Gym", "Salon"],
+    Entertainment: ["Movies", "Concerts"],
+    Shopping: ["Clothes", "Gadgets"],
+    Savings: ["Emergency Fund", "Investments"],
+    Debt: ["Credit Card", "Loan"],
+    Miscellaneous: ["Miscellaneous Expenses"],
+  };
+
+  const transactions_today = [
+    {
+      telegram_id: 6478073188,
+      amount_spent: 5.0,
+      date_spent: "2024-08-21",
+      created_on: "2024-08-21",
+      date_spent_timezone: "Europe/London",
+      expense_comment: "Test",
+      category: "Rent",
+    },
+    {
+      telegram_id: 6478073188,
+      amount_spent: 6.0,
+      date_spent: "2024-08-21",
+      created_on: "2024-08-21",
+      date_spent_timezone: "Europe/London",
+      expense_comment: "Test",
+      category: "Rent",
+    },
+  ];
+
+  return { categories, detailedBreakdown, subCategories, transactions_today };
 }
 
 function Gasto() {
-  const { categories, detailedBreakdown } = GetExpensesFromServer();
+  const { categories, detailedBreakdown, subCategories, transactions_today } =
+    GetExpensesFromServer();
   const entries = Object.entries(categories);
 
   function GetExpenseEntries(entries, start, end) {
@@ -60,7 +96,22 @@ function Gasto() {
     ));
   }
 
-  function ExpenseList() {
+  function ExpenseTransactionsToday() {
+    /*
+    Makes list of today's expense transactions for quick view.
+    Will be used at home page to show user of all their expenses transactions today.
+    */
+    const itemsPerRow = 2;
+    const rows = [];
+
+    return (
+      <>
+        <p>Test</p>
+      </>
+    );
+  }
+
+  function ExpenseSummaryToday() {
     /* 
     Makes the list of expenses for display in UserView
     Uses GetExpenseEntries to make the cards
@@ -76,7 +127,7 @@ function Gasto() {
     }
     return (
       <>
-        <h2>Today's Expenses</h2>
+        <h2>Today's Summary</h2>
         {rows}
       </>
     );
@@ -109,8 +160,6 @@ function Gasto() {
   };
 
   const BackButton = () => {
-    // Can be used as back for certain pages, or Home
-    // Brings user to home page
     return (
       <CreateButton
         label="Back"
@@ -134,7 +183,7 @@ function Gasto() {
     return (
       <CreateButton
         label="View Expenses"
-        onClickHandler={setUserView(<HomePage />)}
+        onClickHandler={() => setUserView(<HomePage />)}
         className={styles.button}
       />
     );
@@ -143,45 +192,72 @@ function Gasto() {
   const HomePage = () => {
     return (
       <>
-        <ExpenseList />
-        <Buttons />
+        <ExpenseSummaryToday />
+        {/* <ExpenseTransactionsToday /> */}
+        <Buttons>
+          <ViewExpenseButton />
+          <AddExpenseButton />
+        </Buttons>
       </>
     );
   };
 
-  const Buttons = () => {
-    return (
-      <>
-        <div className={`${styles.buttons} grid`}>{availableButtons}</div>
-      </>
-    );
+  const Buttons = ({ children }) => {
+    return <div className={`${styles.buttons} grid`}>{children}</div>;
   };
 
   function InitiateAddExpense() {
+    // Show add expense form.
+
     const AddExpenseForm = () => {
+      const [selectedCategory, setSelectedCategory] = useState(""); // State to track the selected main category
+
+      const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.value); // Update selected category when user selects a main category
+      };
+
       return (
         <>
           <article>
             <form>
               <fieldset>
                 <label>
-                  First name
-                  <input
-                    name="first_name"
-                    placeholder="First name"
-                    autocomplete="given-name"
-                  />
+                  Amount
+                  <input name="expense_amount" placeholder="0" />
                 </label>
-                <select name="favorite-cuisine" aria-label="Category" required>
+                <select
+                  name="main-category"
+                  aria-label="Category"
+                  required
+                  onChange={handleCategoryChange}
+                  value={selectedCategory}
+                >
                   <option selected disabled value="">
-                    Select your favorite cuisine...
+                    Select Category
                   </option>
-                  <option>Italian</option>
-                  <option>Japanese</option>
-                  <option>Indian</option>
-                  <option>Thai</option>
-                  <option>French</option>
+                  {Object.keys(subCategories).map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
                 </select>
+
+                {selectedCategory && (
+                  <select
+                    name="sub-category"
+                    aria-label="Sub-Category"
+                    required
+                  >
+                    <option selected disabled value="">
+                      Select Sub-Category
+                    </option>
+                    {subCategories[selectedCategory].map((subCategory) => (
+                      <option key={subCategory} value={subCategory}>
+                        {subCategory}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </fieldset>
               <input type="submit" value="Submit" />
             </form>
@@ -194,17 +270,14 @@ function Gasto() {
       <>
         <h2>Add Expense</h2>
         <AddExpenseForm />
+        <Buttons>
+          <BackButton />
+        </Buttons>
       </>
     );
   }
 
   const [userView, setUserView] = useState(<HomePage />);
-  const [availableButtons, setAvailableButtons] = useState(
-    <>
-      <ViewExpenseButton />
-      <AddExpenseButton />
-    </>
-  );
 
   return (
     <>
