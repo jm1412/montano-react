@@ -1,8 +1,8 @@
-// src/Login.js
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -10,10 +10,12 @@ const Login = () => {
   const [error, setError] = useState("");
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation(); // Get the location object
+  const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/"; // Get the 'from' pathname or default to "/"
+  // Retrieve the original page the user was trying to access
+  const from = location.state?.from?.pathname || "/";
 
+  // Function to handle form submission and perform login
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -24,12 +26,15 @@ const Login = () => {
           password,
         }
       );
+
+      // Store tokens in localStorage and update the authentication state
       localStorage.setItem("accessToken", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
       setError("");
-      login(); // Set authentication state to true
-      navigate(from, { replace: true }); // Redirect to the original page or the default page
+      login();
+      navigate(from, { replace: true }); // Redirect to the original page after login
     } catch (err) {
+      // Show error message if authentication fails
       if (err.response && err.response.status === 401) {
         setError("Invalid username or password");
       } else {
@@ -39,7 +44,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className={`${styles.loginContainer} container`}>
+      {/* Login form */}
       <form onSubmit={handleLogin}>
         <input
           type="text"
@@ -57,7 +63,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} {/* Display error if any */}
     </div>
   );
 };

@@ -1,0 +1,15 @@
+.buttons{
+    text-align: center;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    transform:scale(0.9)
+}
+
+.loginContainer {
+    width:auto;
+    justify-content: center;
+    max-width:800px !important;
+
+}
