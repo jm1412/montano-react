@@ -5,21 +5,32 @@ import { lazy } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Gasto from "./pages/Gasto";
-
-// Lazy load the route components
+import Login from "./pages/Login";
+import { AuthProvider } from "./AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <MenuBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/gasto" element={<Gasto />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div>
+          <MenuBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/gasto"
+              element={
+                <ProtectedRoute>
+                  <Gasto />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

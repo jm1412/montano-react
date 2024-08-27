@@ -1,45 +1,63 @@
-import React from "react";
+// src/MenuBar.js
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthContext"; // Import AuthContext
 
 function MenuBar() {
+  const { isAuthenticated, logout } = useContext(AuthContext); // Use isAuthenticated and logout from context
+
+  const handleLogout = (event) => {
+    event.preventDefault(); // Prevent default link navigation
+    logout(); // Perform logout action
+  };
+
   return (
     <header>
       <nav>
         <ul>
           <li>
-            <a href="/">
+            <Link to="/">
               <strong>Montano</strong>
-            </a>
+            </Link>
           </li>
         </ul>
         <ul>
           <li>
-            <a href="/" className="secondary">
+            <Link to="/" className="secondary">
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/about" className="secondary">
+            <Link to="/about" className="secondary">
               About
-            </a>
+            </Link>
           </li>
-
           <li>
             <details className="dropdown">
               <summary>Apps</summary>
               <ul dir="rtl">
                 <li>
-                  <a href="/gasto">Gasto</a>
+                  <Link to="/gasto">Gasto</Link>
                 </li>
                 <li>
-                  <a href="#">Settings</a>
-                </li>
-                <li>
-                  <a href="#">Logout</a>
+                  <Link to="#">Settings</Link>
                 </li>
               </ul>
             </details>
           </li>
+          {isAuthenticated ? (
+            <li>
+              <Link to="/" onClick={handleLogout} className="secondary">
+                Logout
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <Link to="/login" className="secondary">
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

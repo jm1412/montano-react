@@ -192,8 +192,8 @@ function Gasto() {
   const HomePage = () => {
     return (
       <>
-        <ExpenseSummaryToday />
-        {/* <ExpenseTransactionsToday /> */}
+        {/* <ExpenseSummaryToday /> */}
+        <ExpenseTransactionsToday />
         <Buttons>
           <ViewExpenseButton />
           <AddExpenseButton />
