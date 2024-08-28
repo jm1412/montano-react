@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Gasto from "./pages/Gasto";
 import Login from "./pages/Login";
+import CreateExpense from "./pages/CreateExpense";
 import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -27,6 +28,7 @@ function App() {
               }
             />
             <Route path="/login" element={<Login />} />
+            <Route path="/create-expense" element={<ProtectedRoute><CreateExpense/></ProtectedRoute>}/>
           </Routes>
         </div>
       </Router>

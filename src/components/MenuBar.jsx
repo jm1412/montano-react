@@ -56,7 +56,11 @@ function MenuBar() {
                 Login
               </Link>
             </li>
-          )}
+          )}            <li>
+          <Link to="/create-expense" className="secondary">
+            Create Expense
+          </Link>
+        </li>
         </ul>
       </nav>
     </header>
