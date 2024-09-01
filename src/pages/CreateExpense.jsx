@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosConfig"; // Import the configured Axios instance
 
 const CreateExpense = () => {
-  const [telegramId, setTelegramId] = useState("");
-  const [amount, setAmount] = useState("");
-  const [timezone, setTimezone] = useState("");
-  const [expenseComment, setExpenseComment] = useState("");
-  const [category, setCategory] = useState("");
-  const [date, setDate] = useState("");
+  // Get today's date in "YYYY-MM-DD" format
+  const today = new Date().toISOString().split("T")[0];
 
+  // State variables
+  const [telegramId, setTelegramId] = useState("12345678");
+  const [amount, setAmount] = useState(100);
+  const [timezone, setTimezone] = useState("Asia/Manila");
+  const [expenseComment, setExpenseComment] = useState("Test");
+  const [category, setCategory] = useState("Miscellaneous");
+  const [date, setDate] = useState(today);
+
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Retrieve the access token from local storage
-    const token = localStorage.getItem("accessToken");
-
+    // Prepare data to be sent in the POST request
     const data = {
       telegram_id: telegramId,
       amount: amount,
@@ -25,20 +28,24 @@ const CreateExpense = () => {
     };
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/ipon_goodbot/goodbot_postexpense/", data, {
-        headers: {
-          "Content-Type": "application/json",
-          // Include the token in the Authorization header
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      // Make POST request using the configured Axios instance
+      const response = await axiosInstance.post(
+        "/ipon_goodbot/goodbot_postexpense/",
+        data
+      );
 
+      // Log success message
       console.log("Success:", response.data);
     } catch (error) {
-      console.error("Error:", error.response ? error.response.data : error.message);
+      // Log error message
+      console.error(
+        "Error:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
+  // Render the form
   return (
     <form onSubmit={handleSubmit}>
       <input
