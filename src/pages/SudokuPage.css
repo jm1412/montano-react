@@ -1,0 +1,118 @@
+.sudoku-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.sudoku-board {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.sudoku-board td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.sudoku-cell.empty {
+  background-color: #f9f9f9;
+}
+
+.sudoku-cell.filled {
+  background-color: #e0e0e0;
+}
+
+.sudoku-cell.editable {
+  background-color: #ffffff; /* Color for user-input cells */
+}
+
+.sudoku-cell.fixed {
+  background-color: #e0e0e0; /* Color for game-generated cells */
+}
+
+.sudoku-cell.selected {
+  border: 2px solid #007bff; /* Highlight selected cell */
+}
+
+.sudoku-board td:nth-child(3n) {
+  border-right: 2px solid #000;
+}
+
+.sudoku-board tr:nth-child(3n) td {
+  border-bottom: 2px solid #000;
+}
+
+.sudoku-board {
+  width: 360px;
+  height: 360px;
+}
+
+.sudoku-board td {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 600px) {
+  .sudoku-board {
+    width: 280px;
+    height: 280px;
+  }
+
+  .sudoku-board td {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 360px;
+  justify-content: center;
+}
+
+/* Number buttons styling */
+.number-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.number-button {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  margin: 2px;
+  background-color: #ffffff; /* White background for the button */
+  color: #000000; /* Dark text color for readability */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px; /* Rounded corners for the button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.number-button:hover {
+  background-color: #f1f1f1; /* Light grey background on hover */
+  border-color: #ccc; /* Darker border on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .number-button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    margin: 1px;
+  }
+}

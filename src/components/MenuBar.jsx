@@ -21,22 +21,25 @@ function MenuBar() {
           </li>
         </ul>
         <ul>
-          <li>
+          {/* <li>
             <Link to="/" className="secondary">
               Home
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <Link to="/about" className="secondary">
               About
             </Link>
-          </li>
+          </li> */}
           <li>
             <details className="dropdown">
               <summary>Apps</summary>
               <ul dir="rtl">
                 <li>
                   <Link to="/gasto">Gasto</Link>
+                </li>
+                <li>
+                  <Link to="/sudoku">Sudoku</Link>
                 </li>
                 <li>
                   <Link to="#">Settings</Link>
@@ -56,11 +59,7 @@ function MenuBar() {
                 Login
               </Link>
             </li>
-          )}            <li>
-          <Link to="/create-expense" className="secondary">
-            Create Expense
-          </Link>
-        </li>
+          )}{" "}
         </ul>
       </nav>
     </header>
