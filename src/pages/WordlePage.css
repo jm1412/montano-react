@@ -1,0 +1,57 @@
+.wordle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.wordle-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.wordle-row {
+  display: flex;
+}
+
+.wordle-cell {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  font-size: 24px;
+}
+
+.wordle-cell-correct {
+  background-color: green;
+  color: white;
+}
+
+.wordle-cell-present {
+  background-color: yellow;
+  color: black;
+}
+
+.wordle-cell-absent {
+  background-color: grey;
+  color: white;
+}
+
+.wordle-input {
+  margin-top: 20px;
+}
+
+.wordle-input input {
+  font-size: 24px;
+  text-align: center;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.wordle-input button {
+  padding: 10px 20px;
+  font-size: 16px;
+}

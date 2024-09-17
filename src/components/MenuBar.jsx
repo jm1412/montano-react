@@ -42,6 +42,9 @@ function MenuBar() {
                   <Link to="/sudoku">Sudoku</Link>
                 </li>
                 <li>
+                  <Link to="/wordle">Wordle</Link>
+                </li>
+                <li>
                   <Link to="#">Settings</Link>
                 </li>
               </ul>

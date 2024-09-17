@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Gasto from "./pages/Gasto";
 import Login from "./pages/Login";
 import SudokuPage from "./pages/SudokuPage";
+import WordlePage from "./pages/WordlePage";
 
 import CreateExpense from "./pages/CreateExpense";
 import { AuthProvider } from "./AuthContext";
@@ -30,6 +31,7 @@ function App() {
               }
             />
             <Route path="/sudoku" element={<SudokuPage />} />
+            <Route path="/wordle" element={<WordlePage />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/create-expense"
